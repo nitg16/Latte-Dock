@@ -415,7 +415,7 @@ MouseArea{
 
             onMScaleChanged: {
                 if ((mScale === root.zoomFactor) && !enableDirectRenderTimer.running && !icList.directRender) {
-                        enableDirectRenderTimer.start();
+                    enableDirectRenderTimer.start();
                 }
 
                 if ((mScale > 1) && !mainItemContainer.isZoomed) {
@@ -631,8 +631,8 @@ MouseArea{
 
     onContainsMouseChanged:{
         if(!containsMouse){
-          //  hiddenSpacerLeft.nScale = 0;
-          //  hiddenSpacerRight.nScale = 0;
+            //  hiddenSpacerLeft.nScale = 0;
+            //  hiddenSpacerRight.nScale = 0;
 
             if(!inAnimation)
                 pressed=false;
@@ -964,10 +964,15 @@ MouseArea{
         interval: 800
 
         onTriggered: {
-
+            for(var i=0; i<tasksModel.launcherList.length; ++i){
+                if ((tasksModel.launcherList[i] == LauncherUrlWithoutIcon) && (i != index)){
+                    //   console.log("Launch List:"+tasksModel.launcherList);
+                    //    console.log("Move from timer "+AppId+" - from:"+ index + " to:" + i + " - total:"+tasksModel.count);
+                    tasksModel.move(index, i);
+                }
+            }
         }
     }
-
 
     /////Animations
 
@@ -1044,7 +1049,7 @@ MouseArea{
 
         function showWindow(){
             if((mainItemContainer.isLauncher || mainItemContainer.isStartup
-                    || icList.delayingRemoval || (!mainItemContainer.buffersAreReady && !root.initializatedBuffers)) && root.durationTime !== 0){
+                || icList.delayingRemoval || (!mainItemContainer.buffersAreReady && !root.initializatedBuffers)) && root.durationTime !== 0){
                 delayShowWindow.createObject(mainItemContainer);
             }
             else{

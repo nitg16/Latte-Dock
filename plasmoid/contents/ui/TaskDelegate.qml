@@ -964,13 +964,7 @@ MouseArea{
         interval: 800
 
         onTriggered: {
-            for(var i=0; i<tasksModel.launcherList.length; ++i){
-                if ((tasksModel.launcherList[i] == LauncherUrlWithoutIcon) && (i != index)){
-                    //   console.log("Launch List:"+tasksModel.launcherList);
-                    //    console.log("Move from timer "+AppId+" - from:"+ index + " to:" + i + " - total:"+tasksModel.count);
-                    tasksModel.move(index, i);
-                }
-            }
+
         }
     }
 
@@ -1194,62 +1188,6 @@ MouseArea{
     }
 
     ///Item's Removal Animation
-
-    ListView.onRemove: SequentialAnimation {
-        ScriptAction{
-            script:{
-                mainItemContainer.inAddRemoveAnimation = true;
-                root.signalAnimationsNeedLength(1)
-            }
-        }
-
-        PropertyAction { target: mainItemContainer; property: "ListView.delayRemove"; value: true }
-        PropertyAction { target: mainItemContainer; property: "inAnimation"; value: true }
-        PropertyAction { target: icList; property: "delayingRemoval"; value: true }
-        //PropertyAction { target: wrapper; property: "opacity"; value: isWindow ? 0 : 1 }
-        //animation mainly for launchers removal and startups
-        ParallelAnimation{
-            id: removalAnimation
-
-            // property int speed: (IsStartup && !mainItemContainer.visible)? 0 : 400
-            //property int speed: 400
-
-            NumberAnimation { target: wrapper; property: "opacity"; to: 0; duration: showWindowAnimation.speed; easing.type: Easing.InQuad }
-
-            PropertyAnimation {
-                target: wrapper
-                property: (icList.orientation == Qt.Vertical) ? "tempScaleWidth" : "tempScaleHeight"
-                to: 0
-                duration: showWindowAnimation.speed
-                easing.type: Easing.InQuad
-            }
-        }
-
-        //smooth move into place the surrounding tasks
-        PropertyAnimation {
-            target: wrapper
-            property: (icList.orientation == Qt.Vertical) ? "tempScaleHeight" : "tempScaleWidth"
-            to: 0
-            duration: showWindowAnimation.speed
-            easing.type: Easing.InQuad
-        }
-
-        PropertyAction { target: mainItemContainer; property: "inAnimation"; value: false }
-        ScriptAction{
-            script:{
-                if (showWindowAnimation.animationSent){
-                    //console.log("SAFETY REMOVAL 1: animation removing ended");
-                    showWindowAnimation.animationSent = false;
-                    root.signalAnimationsNeedLength(-1);
-                }
-
-                root.signalAnimationsNeedLength(-1)
-            }
-        }
-
-        PropertyAction { target: mainItemContainer; property: "ListView.delayRemove"; value: false }
-        PropertyAction { target: icList; property: "delayingRemoval"; value: false }
-    }
 
 }// main Item
 

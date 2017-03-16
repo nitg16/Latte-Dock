@@ -1195,12 +1195,20 @@ MouseArea{
     ///Item's Removal Animation
     ListView.onRemove: SequentialAnimation {
         PropertyAction { target: mainItemContainer; property: "ListView.delayRemove"; value: true }
-        PropertyAction { target: mainItemContainer; property: "inAnimation"; value: true }
-        PropertyAction { target: icList; property: "delayingRemoval"; value: true }
 
         ScriptAction{
             script:{
+                root.mouseWasEntered.disconnect(signalMouseWasEntered);
+                root.draggingFinished.disconnect(handlerDraggingFinished);
+                root.clearZoomSignal.disconnect(clearZoom);
+                root.publishTasksGeometries.disconnect(slotPublishGeometries);
+                root.showPreviewForTasks.disconnect(slotShowPreviewForTasks);
+                root.updateScale.disconnect(signalUpdateScale);
+
+                mainItemContainer.inAnimation = true;
+                icList.delayingRemoval = true;
                 mainItemContainer.inAddRemoveAnimation = true;
+
                 root.signalAnimationsNeedLength(1);
             }
         }
@@ -1241,11 +1249,12 @@ MouseArea{
                 }
 
                 root.signalAnimationsNeedLength(-1);
+
+                mainItemContainer.inAnimation = false;
+                icList.delayingRemoval = false;
             }
         }
 
-        PropertyAction { target: mainItemContainer; property: "inAnimation"; value: false }
-        PropertyAction { target: icList; property: "delayingRemoval"; value: false }
         PropertyAction { target: mainItemContainer; property: "ListView.delayRemove"; value: false }
     }
 

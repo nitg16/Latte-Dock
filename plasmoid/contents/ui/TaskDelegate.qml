@@ -1193,7 +1193,7 @@ MouseArea{
     }
 
     ///Item's Removal Animation
-    ListView.onRemove: SequentialAnimation {
+    /*ListView.onRemove: SequentialAnimation {
         PropertyAction { target: mainItemContainer; property: "ListView.delayRemove"; value: true }
 
         ScriptAction{
@@ -1256,7 +1256,7 @@ MouseArea{
         }
 
         PropertyAction { target: mainItemContainer; property: "ListView.delayRemove"; value: false }
-    }
+    }*/
 
 }// main Item
 

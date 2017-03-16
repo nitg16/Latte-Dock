@@ -1198,7 +1198,7 @@ MouseArea{
         PropertyAction { target: mainItemContainer; property: "inAnimation"; value: true }
         PropertyAction { target: icList; property: "delayingRemoval"; value: true }
 
-       /* ScriptAction{
+        ScriptAction{
             script:{
                 mainItemContainer.inAddRemoveAnimation = true;
                 root.signalAnimationsNeedLength(1);
@@ -1212,7 +1212,6 @@ MouseArea{
 
             // property int speed: (IsStartup && !mainItemContainer.visible)? 0 : 400
             //property int speed: 400
-
             NumberAnimation { target: wrapper; property: "opacity"; to: 0; duration: showWindowAnimation.speed; easing.type: Easing.InQuad }
 
             PropertyAnimation {
@@ -1233,7 +1232,6 @@ MouseArea{
             easing.type: Easing.InQuad
         }
 
-        PropertyAction { target: mainItemContainer; property: "inAnimation"; value: false }
         ScriptAction{
             script:{
                 if (showWindowAnimation.animationSent){
@@ -1244,8 +1242,9 @@ MouseArea{
 
                 root.signalAnimationsNeedLength(-1);
             }
-        }*/
+        }
 
+        PropertyAction { target: mainItemContainer; property: "inAnimation"; value: false }
         PropertyAction { target: icList; property: "delayingRemoval"; value: false }
         PropertyAction { target: mainItemContainer; property: "ListView.delayRemove"; value: false }
     }

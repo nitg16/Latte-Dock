@@ -58,18 +58,18 @@ DockView::DockView(Plasma::Corona *corona, QScreen *targetScreen, bool alwaysVis
     setColor(QColor(Qt::transparent));
     setClearBeforeRendering(true);
 
-    if (!alwaysVisible) {
-        setFlags(Qt::BypassWindowManagerHint
-                 | Qt::FramelessWindowHint
-                 | Qt::WindowStaysOnTopHint
-                 | Qt::NoDropShadowWindowHint
-                 | Qt::WindowDoesNotAcceptFocus);
-    } else {
-        setFlags(Qt::FramelessWindowHint
-                 | Qt::WindowStaysOnTopHint
-                 | Qt::NoDropShadowWindowHint
-                 | Qt::WindowDoesNotAcceptFocus);
-    }
+    /* if (!alwaysVisible) {
+         setFlags(Qt::BypassWindowManagerHint
+                  | Qt::FramelessWindowHint
+                  | Qt::WindowStaysOnTopHint
+                  | Qt::NoDropShadowWindowHint
+                  | Qt::WindowDoesNotAcceptFocus);
+     } else {*/
+    setFlags(Qt::FramelessWindowHint
+             | Qt::WindowStaysOnTopHint
+             | Qt::NoDropShadowWindowHint
+             | Qt::WindowDoesNotAcceptFocus);
+    // }
 
     if (targetScreen)
         setScreenToFollow(targetScreen);
